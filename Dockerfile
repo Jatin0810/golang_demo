@@ -49,5 +49,11 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o /golang-mongodb-docker
 # Expose the required port
 EXPOSE 9090
 
+# Copy the built binary from the builder stage
+# COPY --from=builder /golang-mongodb-docker .
+
+# Copy the config file
+COPY configs/configs.yaml /configs/configs.yaml
+
 # Run the compiled binary
-CMD ["/golang-mongodb-docker"]
+CMD ["/golang-mongodb-docker",  "-config", "/configs/configs.yaml" ]
