@@ -1,0 +1,4 @@
+env : "Dev"
+db_url : "mongodb+srv://jatin_dharaiya:Jatin%4008102000@demo.havv7ft.mongodb.net/golang_api"
+http_server:
+  address: "localhost:8002"
