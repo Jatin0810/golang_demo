@@ -43,9 +43,9 @@ FROM golang
 # Create app folder 
 RUN mkdir /app
 # Copy our file in the host contianer to our contianer
-ADD . /app
+# ADD . /app
 # Set /app to the go folder as workdir
-WORKDIR /app
+WORKDIR /app/cmd/golang_mongodb
 # Generate binary file from our /app
 RUN go build
 # Expose the port 3000
