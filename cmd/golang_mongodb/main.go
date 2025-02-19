@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
 	"log/slog"
 	"net/http"
 	"os"
@@ -34,7 +33,8 @@ func main() {
 		err := server.ListenAndServe()
 		slog.Info("server started")
 		if err != nil {
-			log.Fatal("Failed to start server")
+			slog.Info("Failed to start server", err)
+			slog.Error("failed to start server", slog.String("error", err.Error()))
 		}
 
 	}()
