@@ -39,7 +39,7 @@
 # Telling to use Docker's golang ready image
 FROM golang
 # Name and Email of the author 
-MAINTAINER Osama Elmashad <elmashad285@gmail.com>
+# MAINTAINER Osama Elmashad <elmashad285@gmail.com>
 # Create app folder 
 RUN mkdir /app
 # Copy our file in the host contianer to our contianer
