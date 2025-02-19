@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
+	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"main.go/api/middleware"
@@ -69,4 +70,47 @@ var Login = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 	}
 	middleware.GetDataReponse(userMap, w)
 
+})
+
+var UserUpdate = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	var user model.UserModel
+
+	err := json.NewDecoder(r.Body).Decode(&user)
+	if err != nil {
+		middleware.ServerErrResponse(err.Error(), w)
+	}
+	collection := client.Database("golang_api").Collection("authentication")
+
+	filter := bson.M{"mobilenumber": user.MobileNumber}
+	updatename := bson.M{"$set": bson.M{"firstname": user.Firstname}}
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	result, err := collection.UpdateOne(ctx, filter, updatename)
+	if err != nil {
+		middleware.ErrorResponse(err.Error(), w)
+	}
+	fmt.Printf("result matched count %d \n", result.MatchedCount)
+	middleware.SuccessResponse("User Sucesully updated", w)
+})
+
+
+var DeleteUser = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	var user model.UserModel
+
+	err := json.NewDecoder(r.Body).Decode(&user)
+	if err != nil {
+		middleware.ServerErrResponse(err.Error(), w)
+	}
+
+	collection := client.Database("golang_api").Collection("authentication")
+
+	filter := bson.M{"mobilenumber": user.MobileNumber}
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	result, err := collection.DeleteOne(ctx, filter)
+	if err != nil {
+		middleware.ErrorResponse(err.Error(), w)
+	}
+	fmt.Printf("result matched count %d \n", result.DeletedCount)
+	middleware.SuccessResponse("User Sucesully Deleted", w)
 })
