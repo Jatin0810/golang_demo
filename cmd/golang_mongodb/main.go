@@ -22,7 +22,6 @@ func main() {
 	fmt.Println("Congif setup:", cfg)
 	routers := routes.Routes()
 
-	slog.Info("server started")
 	server := http.Server{
 		Addr:    cfg.Addr,
 		Handler: routers,
@@ -33,10 +32,11 @@ func main() {
 
 	go func() {
 		err := server.ListenAndServe()
-
+		slog.Info("server started")
 		if err != nil {
 			log.Fatal("Failed to start server")
 		}
+
 	}()
 
 	<-done
