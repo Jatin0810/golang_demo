@@ -1,4 +1,4 @@
 env : "Dev"
 db_url : "mongodb+srv://jatin_dharaiya:Jatin%4008102000@demo.havv7ft.mongodb.net/golang_api"
 http_server:
-  address: "13.234.66.106:9090"
+  address: "0.0.0.0:9090"
