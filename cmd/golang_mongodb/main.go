@@ -28,13 +28,17 @@ func main() {
 	done := make(chan os.Signal, 1)
 
 	signal.Notify(done, os.Interrupt)
+	fmt.Println("Server Address:", cfg.Addr)
 
 	go func() {
+		slog.Info("server starting...") 
 		err := server.ListenAndServe()
-		slog.Info("server started")
-		if err != nil {
-			slog.Info("Failed to start server", err)
-			slog.Error("failed to start server", slog.String("error", err.Error()))
+		slog.Info("server started") 
+	
+		if err != nil && err != http.ErrServerClosed {
+			fmt.Println("Server failed to start:", err)
+			slog.Error("Failed to start server", slog.String("error", err.Error()))
+			os.Exit(1)  // Explicitly exit to avoid confusion
 		}
 
 	}()
