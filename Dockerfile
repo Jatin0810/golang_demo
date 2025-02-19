@@ -41,13 +41,13 @@ FROM golang
 # Name and Email of the author 
 # MAINTAINER Osama Elmashad <elmashad285@gmail.com>
 # Create app folder 
-RUN mkdir /app
+RUN go mod download
 # Copy our file in the host contianer to our contianer
 # ADD . /app
 # Set /app to the go folder as workdir
 WORKDIR /app/cmd/golang_mongodb
 # Generate binary file from our /app
-RUN go build
+RUN CGO_ENABLED=0 GOOS=linux go build -o /golang-mongodb-docker
 # Expose the port 3000
 EXPOSE 3000:3000
 # Run the app binarry file 
