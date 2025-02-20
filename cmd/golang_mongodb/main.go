@@ -14,10 +14,28 @@ import (
 	"main.go/routes"
 )
 
+
 func main() {
 	fmt.Println("Hello Mongodb")
 
 	cfg := config.CongifInit()
+	// rdctx := context.Background()
+
+	// if err := c.Ping(rdctx); err != nil {
+	// 	log.Panic("Failed to connect Redis")
+	// }
+	// log.Println("Redis Connected")
+	// if err := c.Set(rdctx, "user:name", "Jatin", 0); err != nil {
+	// 	log.Println("Error: Value is not stored")
+	// }
+
+	// log.Println("Value stored in redis")
+
+	// res, err := c.Get(rdctx, "user:name")
+	// if err != nil {
+	// 	log.Println("Error: Value is not stored", err.Error())
+	// }
+	// fmt.Println("Redis value:", res)
 
 	fmt.Println("Congif setup:", cfg)
 	routers := routes.Routes()
@@ -53,4 +71,3 @@ func main() {
 	slog.Info("server shutdown")
 
 }
-

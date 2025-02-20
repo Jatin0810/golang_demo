@@ -58,3 +58,18 @@ func GetDataReponse(fields map[string]interface{}, writer http.ResponseWriter) {
 	writer.WriteHeader(http.StatusOK)
 	json.NewEncoder(writer).Encode(response)
 }
+
+// ValidationResponse -> user input validation
+func GetRedisDataReponse(fields map[string]interface{}, writer http.ResponseWriter) {
+	//Create a new map and fill it
+	response := make(map[string]interface{})
+
+	response["status"] = 200
+	response["msg"] = "User Fetched Sucesfully"
+	response["Data"] = fields
+
+	//Send header, status code and output to writer
+	writer.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(writer).Encode(response)
+
+}
